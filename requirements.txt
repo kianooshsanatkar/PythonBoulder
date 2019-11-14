@@ -1,0 +1,9 @@
+# This file is used by pip to install required python packages
+# Usage: pip install -r requirements.txt
+
+coverage==4.5.4
+passlib==1.7.1
+#SQLAlchemy
+psycopg2==2.8.4
+psycopg2-binary==2.8.4
+SQLAlchemy==1.3.11
