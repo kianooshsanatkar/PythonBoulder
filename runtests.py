@@ -11,4 +11,5 @@ if __name__ == '__main__':
     for module in  test_modules_list:
         tests.addTest(unittest.TestLoader().discover(module, '*test.py'))
 
+
     unittest.TextTestRunner(verbosity=2).run(tests)
