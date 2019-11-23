@@ -27,6 +27,9 @@ class BaseInfraFunctionalTest(TestCase):
         self.commands = CommandsCaller(InfraRepository(TestDbConfig.connection_str, True, True), None)
         self.queries = QueryCaller(InfraRepository(TestDbConfig.connection_str, True), None)
 
+    def tearDown(self) -> None:
+        self.drop_tables()
+
     def logout(self):
         self.commands.set_user(None)
         self.queries.set_user(None)

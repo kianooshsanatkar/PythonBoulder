@@ -1,5 +1,5 @@
 import inspect
-from unittest import *
+from unittest import TestCase
 from core.domain.basevalueobject import ValueObject
 
 
@@ -111,5 +111,5 @@ class TestValueObject(TestCase):
 
 
 #todo: TestEntity
-class TestEntity(TestCase):
-    pass
+# class TestEntity(TestCase):
+#     pass
