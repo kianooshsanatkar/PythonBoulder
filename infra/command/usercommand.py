@@ -11,7 +11,7 @@ class RegisterUser(InfraBaseCommand):
     def authorize(self):
         return True
 
-    def run(self, user:User):
+    def run(self, user: User):
         if self.current_user is not None:
             raise AuthenticationException(
                 ResourceManager.translate(Texts.ALREADY_LOGGED_IN)
@@ -23,12 +23,13 @@ class RegisterUser(InfraBaseCommand):
             repo.insert(user_model)
             return user_model.Id
 
+
 class CreateBlankUser(InfraBaseCommand):
 
     def authorize(self):
         return True
 
-    def run(self, user:User):
+    def run(self, user: User):
         user.state = UserState.REGISTERED
         user.validation()
         user_model = self.__entity_translator__.user_translator(user)
