@@ -1,5 +1,5 @@
 from infra.datahandler.objectmodels import Person
-from infra.query.infrabasequery import InfraBaseQuery
+from infra.handler.query.infrabasequery import InfraBaseQuery
 
 
 class GetPerson(InfraBaseQuery):
