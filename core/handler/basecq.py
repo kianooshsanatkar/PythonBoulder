@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from copy import copy
 
 from core.datahandler.repository import GenericRepository
-from core.exceptions import AuthorizationException
+from core.exceptionhandler.exceptions import AuthorizationException
 from core.resource.resource import ResourceManager, Texts
 
 
