@@ -1,4 +1,4 @@
-from core.local import LanguageLocalization
+from core.localization.local import LanguageLocalization
 
 i18n_texts = {
     "PASSWORD_VALUE_NOT_VALID": ("Password value is not valid", "مقدار پسوورد وارد شده معتبر نمی باشد"),
