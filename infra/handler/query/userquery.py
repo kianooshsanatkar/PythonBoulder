@@ -1,10 +1,10 @@
 from uuid import UUID
 
 from core.auxiliary.helper import is_UUID
-from core.exceptions import AuthenticationException, ValidationException
+from core.exceptionhandler.exceptions import AuthenticationException, ValidationException
 from infra.datahandler import objectmodels as model
 from infra.domain.entities.user import User
-from infra.query.infrabasequery import InfraBaseQuery
+from infra.handler.query.infrabasequery import InfraBaseQuery
 from infra.resource import ResourceManager, Texts
 
 

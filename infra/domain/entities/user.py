@@ -1,6 +1,6 @@
 from core.auxiliary.helper import *
 from core.domain.baseentity import Entity
-from core.exceptions import ValidationException, AuthenticationException
+from core.exceptionhandler.exceptions import ValidationException, AuthenticationException
 from infra.resource import Texts, ResourceManager
 from infra.domain.valueobject import UserState
 
@@ -40,7 +40,7 @@ class User(Entity):
         self.persons = persons
         self.__current_person__ = current_person
 
-    def password_hidden(self,hide):
+    def password_hidden(self, hide):
         self.__hide_password = hide
 
     def validation(self) -> None:
@@ -73,7 +73,7 @@ class User(Entity):
         self.password_validation(password)
         self.__password = hashing_string(password)
 
-    def password_validation(self, password: str=None):
+    def password_validation(self, password: str = None):
         if password_validation(self.password if password is None else password) is not True:
             raise ValidationException(ResourceManager.translate(Texts.PASSWORD_VALUE_NOT_VALID))
 

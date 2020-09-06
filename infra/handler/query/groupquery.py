@@ -1,5 +1,5 @@
 from infra.datahandler import objectmodels as model
-from infra.query.infrabasequery import InfraBaseQuery
+from infra.handler.query.infrabasequery import InfraBaseQuery
 
 
 class GetGroupById(InfraBaseQuery):

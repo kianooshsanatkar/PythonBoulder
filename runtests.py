@@ -1,9 +1,9 @@
 import unittest
 
 test_modules_list = [
-    'core/coretests/tests',
-    'infra/infratests/tests',
-    'infra/infratests/functionaltests'
+    'core/tests/unittests',
+    'infra/tests/unittests',
+    'infra/tests/functionaltests'
 ]
 
 if __name__ == '__main__':
