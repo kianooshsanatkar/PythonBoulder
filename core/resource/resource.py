@@ -1,4 +1,4 @@
-from core.local import LanguageLocalization
+from core.localization.local import LanguageLocalization
 
 i18n_texts = {
     'USER_HAS_NOT_ACCESS': ('you have no permission to perform this action.', 'شما دسترسی لازم را دارا نمی باشید.'),
