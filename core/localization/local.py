@@ -1,6 +1,3 @@
-from core.exceptions import ValidationException
-
-
 class CultureConfig:
     CURRENT_LANG = "eng"
     LANGUAGES = {"eng": 0, "fa": 1}
