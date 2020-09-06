@@ -1,5 +1,5 @@
-from core.exceptions import ValidationException
-from infra.command.infrabasecommand import InfraBaseCommand
+from core.exceptionhandler.exceptions import ValidationException
+from infra.handler.commands.infrabasecommand import InfraBaseCommand
 from infra.domain.entities.person import Person
 from infra.datahandler import objectmodels as model
 
