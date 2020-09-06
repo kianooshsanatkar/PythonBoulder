@@ -1,7 +1,7 @@
 import uuid
 from unittest import TestCase
 
-from core.exceptions import ValidationException, AuthenticationException
+from core.exceptionhandler.exceptions import ValidationException, AuthenticationException
 from infra.domain.entities.user import User
 from infra.domain.valueobject import UserState
 
