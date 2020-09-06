@@ -1,7 +1,7 @@
-from core.handler.basecq import BaseCommand
+from core.basecq import BaseCommand
 from infra.datahandler.repository import InfraRepository
-from infra.translator.toentity import ObjectModelTranslator
-from infra.translator.toobjectmodel import EntityTranslator
+from infra.datahandler.translator.toentity import ObjectModelTranslator
+from infra.datahandler.translator.toobjectmodel import EntityTranslator
 
 
 class InfraBaseCommand(BaseCommand):

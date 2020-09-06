@@ -2,16 +2,16 @@ from copy import copy
 from typing import overload
 from uuid import UUID
 
-from infra.handler.commands.groupcommand import CreateNewGroup
-from infra.handler.commands.personcommand import RegisterPerson, RegisterPersonFor
-from infra.handler.commands.usercommand import ChangePassword, ChangeUserName, ChangeUserEmail, RegisterUser, CreateBlankUser
+from infra.command.groupcommand import CreateNewGroup
+from infra.command.personcommand import RegisterPerson, RegisterPersonFor
+from infra.command.usercommand import ChangePassword, ChangeUserName, ChangeUserEmail, RegisterUser, CreateBlankUser
 from infra.datahandler.repository import InfraRepository
 from infra.domain.entities.group import Group
 from infra.domain.entities.person import Person
 from infra.domain.entities.user import User
-from infra.handler.query.groupquery import GetGroupById, GetGroupByTitle
-from infra.handler.query.personquery import GetPerson, GetPersonsOfUser
-from infra.handler.query.userquery import UserLogin, GetUser, GetUserPerson
+from infra.query.groupquery import GetGroupById, GetGroupByTitle
+from infra.query.personquery import GetPerson, GetPersonsOfUser
+from infra.query.userquery import UserLogin, GetUser, GetUserPerson
 
 
 class BaseCaller:

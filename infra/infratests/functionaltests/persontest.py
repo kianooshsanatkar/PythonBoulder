@@ -1,7 +1,7 @@
 import datetime
 
 from core.domain.helper import Gender
-from infra.tests.functionaltests.basefunctional import BaseInfraFunctionalTest
+from infra.infratests.functionaltests.basefunctional import BaseInfraFunctionalTest
 
 
 class PersonTest(BaseInfraFunctionalTest):

@@ -1,6 +1,6 @@
-from core.exceptionhandler.exceptions import AuthenticationException
+from core.exceptions import AuthenticationException
 from infra.domain.valueobject import UserState
-from infra.tests.functionaltests.basefunctional import BaseInfraFunctionalTest
+from infra.infratests.functionaltests.basefunctional import BaseInfraFunctionalTest
 
 
 class UserTest(BaseInfraFunctionalTest):

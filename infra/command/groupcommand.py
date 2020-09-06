@@ -1,4 +1,4 @@
-from infra.handler.commands.infrabasecommand import InfraBaseCommand
+from infra.command.infrabasecommand import InfraBaseCommand
 from infra.datahandler import objectmodels as model
 from infra.domain.entities.group import Group
 from infra.domain.entities.person import Person

@@ -1,4 +1,4 @@
-from infra.tests.functionaltests.basefunctional import BaseInfraFunctionalTest
+from infra.infratests.functionaltests.basefunctional import BaseInfraFunctionalTest
 
 
 class GroupTest(BaseInfraFunctionalTest):

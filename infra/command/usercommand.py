@@ -1,5 +1,5 @@
-from core.exceptionhandler.exceptions import AuthenticationException
-from infra.handler.commands.infrabasecommand import InfraBaseCommand
+from core.exceptions import AuthenticationException
+from infra.command.infrabasecommand import InfraBaseCommand
 from infra.domain.entities.user import User
 from infra.domain.valueobject import UserState
 from infra.resource import ResourceManager, Texts
