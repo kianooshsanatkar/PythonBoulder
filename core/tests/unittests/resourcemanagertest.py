@@ -1,4 +1,4 @@
-from core.local import LanguageLocalization, CultureConfig
+from core.localization.local import LanguageLocalization, CultureConfig
 import unittest
 
 i18n_texts = {
