@@ -18,7 +18,7 @@ class UserTest(BaseInfraFunctionalTest):
         self.assertEqual(user['user_name'], get_user.user_name)
         self.assertEqual(user['email'], get_user.email)
         self.assertEqual(UserState.REGISTERED, get_user.state)
-        self.assertEqual(user['mobile_number'], get_user.mobile_number)
+        self.assertEqual(user['mobile_number'], get_user.cellphone)
         # not login when already login
         self.set_self_user()
         self.assertRaises(AuthenticationException,self.queries.query_user_login,user['user_name'], user['password'])

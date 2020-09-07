@@ -12,7 +12,7 @@ class ObjectModelTranslator:
 
     @staticmethod
     def user_translator(user: models.User, password=False) -> User:
-        return User(id=user.Id, user_name=user.UserName,
+        return User(uid=user.Id, user_name=user.UserName,
                     password=user.Password if password is True else None,
                     email=user.Email,
                     mobile_number=user.MobileNumber, state=user.State, email_verified=user.EmailVerified,
@@ -30,7 +30,7 @@ class ObjectModelTranslator:
 
     @staticmethod
     def person_translator(person: models.Person, with_permission=False) -> Person:
-        return Person(id=person.Id,
+        return Person(uid=person.Id,
                       first_name=person.FirstName,
                       last_name=person.LastName,
                       birth_date=person.BirthDate,
@@ -41,7 +41,7 @@ class ObjectModelTranslator:
 
     @staticmethod
     def contact_translator(person: models.Person) -> Contact:
-        return Contact(id=person.Id,
+        return Contact(uid=person.Id,
                        email=person.Email,
                        instagram=person.Instagram,
                        twitter=person.Twitter,
@@ -56,7 +56,7 @@ class ObjectModelTranslator:
             members = []
             for member in group.Members:
                 members.append(Person(
-                    id=member.Person.Id,
+                    uid=member.Person.uid,
                     user=None,
                     first_name=member.Person.FirstName,
                     last_name=member.Person.LastName,
@@ -68,20 +68,20 @@ class ObjectModelTranslator:
 
     @staticmethod
     def group_translator(group: models.Group) -> Group:
-        return Group(id=group.Id,
+        return Group(uid=group.Id,
                      title=group.Title,
                      creator=group.Creator,
                      members=ObjectModelTranslator.group_member_translator(group))
 
     @staticmethod
     def location_translator(location: models.Location) -> Location:
-        return Location(id=location.Id,
+        return Location(uid=location.Id,
                         lat=location.Latitude,
                         lng=Location.longitude)
 
     @staticmethod
     def area_translator(location: models.Location) -> Area:
-        return Area(id=location.Id,
+        return Area(uid=location.Id,
                     latitude=location.Latitude,
                     longitude=location.Longitude,
                     name=location.Name,

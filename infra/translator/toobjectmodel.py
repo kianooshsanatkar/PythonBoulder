@@ -6,7 +6,7 @@ class EntityTranslator:
 
     @staticmethod
     def user_translator(entity: user.User) -> models.User:
-        return models.User(id=entity.id,
+        return models.User(id=entity.uid,
                            username=entity.user_name,
                            password=entity.password,
                            state=entity.state,
@@ -18,12 +18,12 @@ class EntityTranslator:
     @staticmethod
     def person_translator(person_e: person.Person, contact_e: person.Contact = None, user_id=None) -> models.Person:
         if contact_e:
-            object_model = models.Person(id=person_e.id,
+            object_model = models.Person(id=person_e.uid,
                                          firstname=person_e.first_name,
                                          lastname=person_e.last_name,
                                          birthdate=person_e.birth_date,
                                          gender=person_e.gender,
-                                         userid=person_e.user.id if person_e.user and person_e.user.id else user_id,
+                                         userid=person_e.user.uid if person_e.user and person_e.user.uid else user_id,
                                          email=contact_e.email,
                                          emailverified=contact_e.email_verified,
                                          instagram=contact_e.instagram,
@@ -40,12 +40,12 @@ class EntityTranslator:
                                          permissions=None,
                                          user=None)
         else:
-            object_model = models.Person(id=person_e.id,
+            object_model = models.Person(id=person_e.uid,
                                          firstname=person_e.first_name,
                                          lastname=person_e.last_name,
                                          birthdate=person_e.birth_date,
                                          gender=person_e.gender,
-                                         userid=person_e.user.id if person_e.user and person_e.user.id else user_id,
+                                         userid=person_e.user.uid if person_e.user and person_e.user.uid else user_id,
                                          user=None)
 
         # if user_id is not None:
@@ -62,14 +62,14 @@ class EntityTranslator:
         if entity.permissions is not None and entity.permissions.__len__() > 0:
             permissions = []
             for x in entity.permissions:
-                permissions.append(models.Permission(entity.id, x.value))
+                permissions.append(models.Permission(entity.uid, x.value))
             return permissions
         return None
 
     @staticmethod
     def location_translator(entity) -> models.Location:
         if type(entity) is area.Area:
-            return models.Location(entity.id,
+            return models.Location(entity.uid,
                                    entity.latitude,
                                    entity.longitude,
                                    entity.name,
@@ -78,7 +78,7 @@ class EntityTranslator:
                                    entity.neighborhood_name,
                                    entity.full_add)
         elif type(entity) is area.Location:
-            return models.Location(entity.id,
+            return models.Location(entity.uid,
                                    entity.latitude,
                                    entity.longitude)
 
@@ -89,11 +89,11 @@ class EntityTranslator:
         if entity.members is not None and entity.members.__len__() > 0:
             members = []
             for member in entity.members:
-                members.append(models.GroupMember(entity.id, member.id))
+                members.append(models.GroupMember(entity.uid, member.uid))
             return members
         return None
 
     @staticmethod
     def group_translator(entity: group.Group) -> models.Group:
-        return models.Group(entity.id, entity.creator.id, entity.title,
+        return models.Group(entity.uid, entity.creator.uid, entity.title,
                             EntityTranslator.group_members_translator(entity))
