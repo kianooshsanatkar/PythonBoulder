@@ -15,9 +15,9 @@ class Person(Entity):
     birth_date: date
     gender: Gender
 
-    def __init__(self, id=None, first_name=None, last_name=None, birth_date=None, gender=None, permissions=None,
+    def __init__(self, uid=None, first_name=None, last_name=None, birth_date=None, gender=None, permissions=None,
                  user=None):
-        super().__init__(id)
+        super().__init__(uid)
         self.user = user
         self.first_name = first_name
         self.last_name = last_name
@@ -36,8 +36,8 @@ class Contact(Entity):
     telegram: str
     resident_location: Location
 
-    def __init__(self, id, email, instagram, twitter, facebook, linkedin, telegram, resident_location):
-        super().__init__(id)
+    def __init__(self, uid, email, instagram, twitter, facebook, linkedin, telegram, resident_location):
+        super().__init__(uid)
         self.email = email
         self.email_verified = email
         self.instagram = instagram

@@ -16,8 +16,8 @@ class Group(Entity):
     #                 return True
     #     raise ValidationException('Group is not valid!')
 
-    def __init__(self, id=None, title=None, creator=None, members=None):
-        super().__init__(id)
+    def __init__(self, uid=None, title=None, creator=None, members=None):
+        super().__init__(uid)
         self.title = title
         self.creator = creator
         self.members = members

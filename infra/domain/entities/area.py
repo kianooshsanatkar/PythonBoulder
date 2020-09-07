@@ -4,8 +4,8 @@ from core.domain.baseentity import Entity
 
 class Location(Entity):
 
-    def __init__(self, id=None, lat: float = None, lng: float = None):
-        super().__init__(id)
+    def __init__(self, uid=None, lat: float = None, lng: float = None):
+        super().__init__(uid)
         if not is_number(lat) or not is_number(lng):
             raise ValueError("location must have both parameters lat and lng")
 
@@ -24,9 +24,9 @@ class Area(Location):
     neighborhood_name: str
     full_add: str
 
-    def __init__(self, id=None, latitude=None, longitude=None, name=None, district_number=None,
+    def __init__(self, uid=None, latitude=None, longitude=None, name=None, district_number=None,
                  neighborhood_name=None, full_add=None):
-        super().__init__(id, latitude, longitude)
+        super().__init__(uid, latitude, longitude)
         self.name = name
         # self.location = location
         self.district_number = district_number
