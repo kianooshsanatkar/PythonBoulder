@@ -52,8 +52,8 @@ class GenericRepository:
 
     def get(self, entity) -> db.Base:
         if isinstance(entity, Entity):
-            return self.get_by_id(self.get_counterpart_type(entity.__class__), entity.id)
-        return self.get_by_id(entity.__class__, entity.Id)
+            return self.get_by_id(self.get_counterpart_type(entity.__class__), entity.uid)
+        return self.get_by_id(entity.__class__, entity.uid)
 
     def insert(self, entity: db.Base) -> None:
         self.session.add(entity)
