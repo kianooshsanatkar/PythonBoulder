@@ -21,7 +21,7 @@ class RegisterUser(InfraBaseCommand):
         user_model = self.__entity_translator__.user_translator(user)
         with self.__data_handler__ as repo:
             repo.insert(user_model)
-            return user_model.Id
+            return user_model.uid
 
 
 class CreateBlankUser(InfraBaseCommand):
@@ -35,7 +35,7 @@ class CreateBlankUser(InfraBaseCommand):
         user_model = self.__entity_translator__.user_translator(user)
         with self.__data_handler__ as repo:
             repo.insert(user_model)
-            return user_model.Id
+            return user_model.uid
 
 
 class ChangeUserEmail(InfraBaseCommand):
@@ -56,7 +56,7 @@ class ChangeUserName(InfraBaseCommand):
     def run(self, new_user_name):
         user = self.current_user
         user.user_name = new_user_name
-        user.username_validation()
+        user.__username_validation()
         with self.__data_handler__ as repo:
             user_model = repo.get(user)
             user_model.UserName = user.user_name
@@ -67,7 +67,7 @@ class ChangePassword(InfraBaseCommand):
 
     def run(self, old_pass, new_pass):
         with self.__data_handler__ as repo:
-            user_model = repo.get(model.User(self.current_user.id))
+            user_model = repo.get(model.User(self.current_user.uid))
             user = self.__model_translator__.user_translator(user_model, True)
             user.password_verification(old_pass)
             user.password_validation(new_pass)
