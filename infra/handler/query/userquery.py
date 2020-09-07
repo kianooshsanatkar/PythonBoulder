@@ -35,8 +35,8 @@ class UserLogin(InfraBaseQuery):
             if user.persons.__len__() == 1:
                 user.__current_person__ = user.persons[0]
             elif current_person_id:
-                user.__current_person__ = filter(lambda pr: pr.id == current_person_id, user.persons).__next__()
-        return User(user.id, username, None, user.email, user.mobile_number, user.state, user.email_verified,
+                user.__current_person__ = filter(lambda pr: pr.uid == current_person_id, user.persons).__next__()
+        return User(user.uid, username, None, user.email, user.cellphone, user.state, user.email_verified,
                     user.mobile_verified,
                     None if user.__current_person__ else user.persons, user.__current_person__)
 
