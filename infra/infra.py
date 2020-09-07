@@ -62,7 +62,7 @@ class CommandsCaller(BaseCaller):
         return RegisterPersonFor(**self.prop).execute(person)
 
     def create_new_group(self, group_title: str, members: list):
-        contact_members = [Person(id=member) for member in members]
+        contact_members = [Person(uid=member) for member in members]
         return CreateNewGroup(**self.prop).execute(Group(title=group_title, members=contact_members))
 
 
@@ -94,7 +94,7 @@ class QueryCaller(BaseCaller):
 
     def get_persons_of_user(self, user_id=None) -> [Person]:
         if not user_id:
-            user_id = self.__user__.id
+            user_id = self.__user__.uid
         return GetPersonsOfUser(**self.prop).execute(user_id)
 
     def get_group_by_id(self, group_id)->Group:

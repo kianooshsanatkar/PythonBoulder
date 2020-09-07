@@ -12,7 +12,7 @@ class GroupTest(BaseInfraFunctionalTest):
         person2 = self.create_user_person()
         person3 = self.create_user_person()
         person4 = self.create_user_person()
-        group_id = self.commands.create_new_group('my group', [person1.id, person2.id, person3.id, person4.id])
+        group_id = self.commands.create_new_group('my group', [person1.uid, person2.uid, person3.uid, person4.uid])
         group = self.queries.get_group_by_id(group_id)
         group_by_title = self.queries.get_group_by_title('my group')
         self.assertIsNotNone(group)
