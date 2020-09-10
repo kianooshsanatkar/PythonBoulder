@@ -1,3 +1,7 @@
+# this entity is deprecated
+# Todo: Remove
+
+"""
 from core.auxiliary.helper import is_number
 from core.domain.baseentity import Entity
 
@@ -32,3 +36,4 @@ class Area(Location):
         self.district_number = district_number
         self.neighborhood_name = neighborhood_name
         self.full_add = full_add
+"""
