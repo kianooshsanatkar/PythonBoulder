@@ -13,6 +13,9 @@ class ImportanceLevel(FiveLevel):
     ...
 
 
+# Deprecated Objects
+# Todo: Remove
+""" 
 class DangerLevel(FiveLevel):
     ...
 
@@ -21,6 +24,7 @@ class Animal(ValueObject):
     CAT = 1
     DOG = 2
     BIRD = 3
+"""
 
 
 class Gender(ValueObject):
