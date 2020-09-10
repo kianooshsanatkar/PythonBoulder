@@ -1,3 +1,7 @@
+# this entity is deprecated
+# Todo: Remove
+
+"""
 from core.domain.baseentity import Entity
 from infra.domain.entities.person import Person
 
@@ -21,3 +25,4 @@ class Group(Entity):
         self.title = title
         self.creator = creator
         self.members = members
+"""
