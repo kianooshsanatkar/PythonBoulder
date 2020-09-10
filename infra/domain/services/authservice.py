@@ -1,7 +1,7 @@
 from auxiliary.helper import hash_match, hashing_string
 from infra.domain.validation.authvalidation import password_validation
 from exceptionhandler.exceptions import AuthenticationException
-from infra.domain.entities.user import AuthInfo
+from domain.entities.authentication import AuthInfo
 from infra.resource import ResourceManager, Texts
 
 

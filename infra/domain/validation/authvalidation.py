@@ -1,6 +1,6 @@
 from core.auxiliary import helper
 from core.exceptionhandler.exceptions import ValidationException
-from infra.domain.entities.user import AuthInfo
+from domain.entities.authentication import AuthInfo
 from infra.resource import ResourceManager, Texts
 
 

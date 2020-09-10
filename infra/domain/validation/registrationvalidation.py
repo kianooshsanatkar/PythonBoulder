@@ -1,6 +1,6 @@
 from core.auxiliary.helper import email_validator, extract_numbers, mobile_number_validator
 from core.domain.ConventionalObjects import Email, CellPhone
-from infra.domain.entities.user import RegistrationInfo
+from domain.entities.Registration import RegistrationInfo
 from core.exceptionhandler.exceptions import ValidationException
 from infra.resource import ResourceManager, Texts
 
