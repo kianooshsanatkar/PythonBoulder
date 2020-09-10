@@ -16,3 +16,7 @@ class AuthorizationException(InternalException):
 
 class DataBaseException(InternalException):
     pass
+
+
+class ValueException(ValueError):
+    pass
