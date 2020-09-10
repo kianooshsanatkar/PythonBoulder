@@ -1,4 +1,4 @@
-from core.domain.ConventionalObjects import Email, CellPhone
+from core.conventions.conventionalobjects import Email, CellPhone
 from infra.domain.entities.user import User
 from infra.domain.valueobject import UserState
 
