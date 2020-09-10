@@ -1,6 +1,6 @@
 import datetime
 
-from core.domain.helper import Gender
+from core.conventions.valueobjects import Gender
 from infra.tests.functionaltests.basefunctional import BaseInfraFunctionalTest
 
 

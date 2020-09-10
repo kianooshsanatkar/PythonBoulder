@@ -5,7 +5,7 @@ from unittest import TestCase
 from sqlalchemy import create_engine
 
 from configuration import db
-from core.domain.helper import Gender
+from core.conventions.valueobjects import Gender
 from infra.datahandler.repository import InfraRepository
 from infra.infra import CommandsCaller, QueryCaller
 
