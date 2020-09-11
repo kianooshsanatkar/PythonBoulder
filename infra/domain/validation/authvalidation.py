@@ -1,6 +1,6 @@
 from core.auxiliary import helper
 from core.exceptionhandler.exceptions import ValidationException
-from domain.entities.authentication import AuthInfo
+from infra.domain.entities.authentication import AuthInfo
 from infra.resource import ResourceManager, Texts
 
 
@@ -9,5 +9,3 @@ def password_validation(auth: AuthInfo, password: str = None):
         raise ValidationException(ResourceManager.translate(Texts.PASSWORD_VALUE_NOT_VALID))
 
 
-def validation(auth_info: AuthInfo):
-    password_validation(auth_info.password)
