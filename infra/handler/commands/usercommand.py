@@ -1,27 +1,30 @@
 from core.exceptionhandler.exceptions import AuthenticationException
-from infra.handler.commands.infrabasecommand import InfraBaseCommand
-from infra.domain.entities.user import User
-from infra.domain.valueobject import UserState
-from infra.resource import ResourceManager, Texts
 from infra.datahandler import objectmodels as model
+from infra.domain import validation
+from infra.domain.entities.authentication import AuthInfo
+from infra.domain.entities.user import User, UserState
+from infra.handler.commands.infrabasecommand import InfraBaseCommand
+from infra.resource import ResourceManager, Texts
 
 
-class RegisterUser(InfraBaseCommand):
+class InitializeUser(InfraBaseCommand):
 
-    def authorize(self):
+    def authorize(self) -> bool:
         return True
 
-    def run(self, user: User):
+    def run(self, user: AuthInfo):
         if self.current_user is not None:
             raise AuthenticationException(
                 ResourceManager.translate(Texts.ALREADY_LOGGED_IN)
             )
-        user.state = UserState.REGISTERED
-        user.validation()
-        user_model = self.__entity_translator__.user_translator(user)
-        with self.__data_handler__ as repo:
-            repo.insert(user_model)
-            return user_model.uid
+        user.state = UserState.INITIALIZED
+        validation.user(user)
+        # Todo: MongoDb DataHandler Implementation
+        # user_model = self.__entity_translator__.user_translator(user)
+        # with self.__data_handler__ as repo:
+        #     repo.insert(user_model)
+        #     return user_model.uid
+        raise NotImplemented()
 
 
 class CreateBlankUser(InfraBaseCommand):
@@ -56,7 +59,7 @@ class ChangeUserName(InfraBaseCommand):
     def run(self, new_user_name):
         user = self.current_user
         user.user_name = new_user_name
-        user.__username_validation()
+        user.username()
         with self.__data_handler__ as repo:
             user_model = repo.get(user)
             user_model.UserName = user.user_name
