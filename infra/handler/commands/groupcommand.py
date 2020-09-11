@@ -1,3 +1,7 @@
+# this Command is Deprecated
+# Todo: Remove
+"""
+
 from infra.handler.commands.infrabasecommand import InfraBaseCommand
 from infra.datahandler import objectmodels as model
 from infra.domain.entities.group import Group
@@ -15,3 +19,4 @@ class CreateNewGroup(InfraBaseCommand):
                 repo.insert(model.GroupMember(group_model.Id, person.uid, person))
 
             return group_model.Id
+"""

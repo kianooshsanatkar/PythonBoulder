@@ -2,11 +2,11 @@ from copy import copy
 from typing import overload
 from uuid import UUID
 
-from infra.handler.commands.groupcommand import CreateNewGroup
+# from infra.handler.commands.groupcommand import CreateNewGroup
 from infra.handler.commands.personcommand import RegisterPerson, RegisterPersonFor
-from infra.handler.commands.usercommand import ChangePassword, ChangeUserName, ChangeUserEmail, RegisterUser, CreateBlankUser
+from infra.handler.commands.usercommand import ChangePassword, ChangeUserName, ChangeUserEmail, InitializeUser, CreateBlankUser
 from infra.datahandler.repository import InfraRepository
-from infra.domain.entities.group import Group
+# from infra.domain.entities.group import Group
 from infra.domain.entities.person import Person
 from infra.domain.entities.user import User
 from infra.handler.query.groupquery import GetGroupById, GetGroupByTitle
@@ -37,7 +37,7 @@ class CommandsCaller(BaseCaller):
     def register_user(self, user):
         if isinstance(user, dict):
             user = User(**user)
-        return RegisterUser(**self.prop).execute(user)
+        return InitializeUser(**self.prop).execute(user)
 
     def create_blank_user(self, user):
         if isinstance(user, dict):
@@ -61,9 +61,9 @@ class CommandsCaller(BaseCaller):
         person = Person(**person)
         return RegisterPersonFor(**self.prop).execute(person)
 
-    def create_new_group(self, group_title: str, members: list):
-        contact_members = [Person(uid=member) for member in members]
-        return CreateNewGroup(**self.prop).execute(Group(title=group_title, members=contact_members))
+    # def create_new_group(self, group_title: str, members: list):
+    #     contact_members = [Person(uid=member) for member in members]
+    #     return CreateNewGroup(**self.prop).execute(Group(title=group_title, members=contact_members))
 
 
 class QueryCaller(BaseCaller):
@@ -97,8 +97,8 @@ class QueryCaller(BaseCaller):
             user_id = self.__user__.uid
         return GetPersonsOfUser(**self.prop).execute(user_id)
 
-    def get_group_by_id(self, group_id)->Group:
-        return GetGroupById(**self.prop).execute(group_id)
+    # def get_group_by_id(self, group_id)->Group:
+    #     return GetGroupById(**self.prop).execute(group_id)
 
-    def get_group_by_title(self, group_id)->Group:
-        return GetGroupByTitle(**self.prop).execute(group_id)
+    # def get_group_by_title(self, group_id)->Group:
+    #     return GetGroupByTitle(**self.prop).execute(group_id)
