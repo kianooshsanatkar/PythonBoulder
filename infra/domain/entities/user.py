@@ -1,5 +1,14 @@
+from enum import Enum
+
 from core.domain.baseentity import Entity
-from infra.domain.valueobject import UserState
+
+
+class UserState(Enum):
+    INITIALIZED = 1
+    REGISTERED = 10
+    ACTIVATED = 20
+    DEACTIVATED = 30
+    SUSPENDED = 40
 
 
 class User(Entity):

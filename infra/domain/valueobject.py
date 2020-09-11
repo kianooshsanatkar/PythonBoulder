@@ -1,16 +1,12 @@
 from core.domain.basevalueobject import ValueObject
 
-
-# todo: class Responsibility(ValueObject):
-class Responsibility(ValueObject):
-    pass
-
-
-class UserState(ValueObject):
-    REGISTERED = 1
-    ACTIVE = 2
-    SUSPEND = 3
-    DEACTIVATE = 4
+# Deprecated
+# Todo: Remove
+# class UserState(ValueObject):
+#     REGISTERED = 1
+#     ACTIVE = 2
+#     SUSPEND = 3
+#     DEACTIVATE = 4
 
 
 class Permission(ValueObject):
