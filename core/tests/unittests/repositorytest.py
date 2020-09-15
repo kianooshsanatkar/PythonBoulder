@@ -5,8 +5,8 @@ from sqlalchemy import Column, String, Integer
 
 from configuration import db
 from datahandler.baseobjectmodel import BaseObjectModel
-from db.repo.sqlarepo import Repository
-from db.repo.sqlauow import UnitOfWork
+from db.slqalchemyrepo.sqlarepo import Repository
+from db.slqalchemyrepo.sqlauow import UnitOfWork
 
 
 class TestDataModel(BaseObjectModel, db.Base):
