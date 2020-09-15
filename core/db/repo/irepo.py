@@ -23,7 +23,7 @@ class IRepository(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get(self):
+    def get(self, uid):
         pass
 
     @abstractmethod
