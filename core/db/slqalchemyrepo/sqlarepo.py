@@ -1,43 +1,8 @@
-from db.repo.irepo import IRepository
-# from domain.baseentity import Entity
-#
-#
-# class Repository(IRepository):
-#
-#     def add(self, entity: Entity) -> None:
-#         pass
-#
-#     def add_range(self, entities: [Entity]):
-#         pass
-#
-#     def remove(self, entity: Entity):
-#         pass
-#
-#     def remove_range(self, entities: [Entity]):
-#         pass
-#
-#     def get(self) -> Entity:
-#         pass
-#
-#     def get_all(self, count) -> [Entity]:
-#         pass
-#
-#     def find(self) -> Entity:
-#         pass
-#
-#     def find_all(self) -> [Entity]:
-#         pass
-
-# import inspect
-# from abc import ABC, abstractmethod
-#
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker
-# from sqlalchemy.orm.attributes import InstrumentedAttribute
-# from sqlalchemy.orm.collections import InstrumentedSet, InstrumentedDict, InstrumentedList
+from sqlalchemy.orm import Session
 
 from configuration import db
 from core.domain.baseentity import Entity
+from db.repo.absrepo import AbsRepository
 
 
 # def replace_object_model_fields(base_obj: db.Base, destination_obj: db.Base):
@@ -51,31 +16,11 @@ from core.domain.baseentity import Entity
 
 
 # todo : Unit Test And Functional Test !!!
-class Repository(IRepository):
-    def remove_range(self, entities):
-        pass
-
-    def get_all(self, count):
-        pass
-
-    def find(self):
-        pass
-
-    def find_all(self):
-        pass
-
-    # __AUTO_COMMIT__ = False
-    # __rollback = False
+class Repository(AbsRepository):
     __type_translator_dict__: dict
 
-    def __init__(self, ssession, url=None, create=False, auto_commit=False):
-        # self.__AUTO_COMMIT__ = auto_commit
-        self.session = ssession
-        # self.engine = create_engine(db.connection_str, echo=db.echo) if url is None else \
-        #     create_engine(url, echo=db.echo)
-        # if create is True:
-        #     db.Base.metadata.create_all(self.engine)
-        # self.Session = sessionmaker(bind=self.engine)
+    def __init__(self, session: Session):
+        self.session = session
 
     def get_counterpart_type(self, _type: type):
         if issubclass(_type, Entity):
@@ -83,12 +28,6 @@ class Repository(IRepository):
                 raise NotImplementedError("'Type Translator Dictionary' is not implemented")
             return self.__type_translator_dict__[_type.__name__]
         raise TypeError('the argument type must be sub class of Entity')
-
-    # def connect(self):
-    #     self.session = self.Session()
-    #
-    # def close(self):
-    #     self.session.close()
 
     # @abstractmethod
     def get(self, uid):
@@ -116,21 +55,14 @@ class Repository(IRepository):
     def remove(self, entity: db.Base) -> None:
         self.session.delete(entity)
 
-    # def commit(self) -> None:
-    #     self.session.commit()
-    #     self.__rollback = False
-    #
-    # def rollback(self) -> None:
-    #     self.session.rollback()
-    #     self.__rollback = False
+    def remove_range(self, entities):
+        pass
 
-    # def __enter__(self):
-    #     self.connect()
-    #     return self
-    #
-    # def __exit__(self, exc_type, exc_val, exc_tb):
-    #     if self.__rollback is True:
-    #         self.session.rollback()
-    #     elif self.__AUTO_COMMIT__ is True:
-    #         self.session.commit()
-    #     self.close()
+    def get_all(self, start, count):
+        pass
+
+    def find(self):
+        pass
+
+    def find_all(self):
+        pass
