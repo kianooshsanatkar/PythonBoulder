@@ -3,13 +3,14 @@ from uuid import uuid4
 
 from sqlalchemy import Column, String, Integer
 
-from configuration import db
+from configuration import TestDb
 from datahandler.baseobjectmodel import BaseObjectModel
 from db.slqalchemyrepo.sqlarepo import Repository
 from db.slqalchemyrepo.sqlauow import UnitOfWork
+from db.slqalchemyrepo.sqlauowmanager import UowConfiguration
 
 
-class TestDataModel(BaseObjectModel, db.Base):
+class TestDataModel(BaseObjectModel, TestDb.Base):
     __tablename__ = "TestTable"
 
     def __init__(self, name, state, Id=None):
@@ -28,20 +29,30 @@ class TestDataRepo(Repository):
 
 
 class TestUOW(UnitOfWork):
-    def __init__(self):
-        super().__init__(create=True)
-        # super(TestUOW, self).__init__()
-        self.test_repo = TestDataRepo(self.__session__, create=True)
+    def __init__(self, context, auto_commit=False):
+        super().__init__(context, auto_commit)
+        self.test_repo = TestDataRepo(self.__context__)
 
 
 class RepositoryTest(TestCase):
 
+    def __init__(self, methodName: str = ...) -> None:
+        super().__init__(methodName)
+        self.uowm = UowConfiguration(TestDb, create=True)
+
+    def tearDown(self) -> None:
+        super().tearDown()
+        TestDb.Base.metadata.drop_all(bind=self.uowm.engine)
+
     def test_add(self):
-        with TestUOW() as uow:
-            uid = uuid4()
-            obj = TestDataModel(name="Test2", state=3, Id=uid)
+        expected_name = "Test2"
+        expected_state = 3
+        uid = uuid4()
+        context = self.uowm.get_context()
+        with TestUOW(context) as uow:
+            obj = TestDataModel(name=expected_name, state=3, Id=uid)
             uow.test_repo.add(obj)
             uow.commit()
             ts_obj = uow.test_repo.get(uid)
-            print(ts_obj.Name)
-        print("it is done")
+            self.assertEqual(expected_name, ts_obj.Name)
+            self.assertEqual(expected_state, ts_obj.State)
