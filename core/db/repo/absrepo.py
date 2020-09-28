@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class IRepository(metaclass=ABCMeta):
+class AbsRepository(metaclass=ABCMeta):
     # Todo: translator Trade-off: where does it belong?
     # def __init__(self, translator):
     #     self.__translator__ = translator
@@ -27,7 +27,7 @@ class IRepository(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get_all(self, count):
+    def get_all(self, start, count):
         pass
 
     @abstractmethod
