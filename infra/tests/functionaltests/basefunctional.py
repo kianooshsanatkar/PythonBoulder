@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 from configuration import db
 from core.conventions.valueobjects import Gender
 from infra.datahandler.repository import InfraRepository
-from infra.infra import CommandsCaller, QueryCaller
+from infra.infrainterface import CommandsCaller, QueryCaller
 
 
 class TestDbConfig(db):
