@@ -1,11 +1,10 @@
 from core.auxiliary.helper import is_hashed
 from infra.domain.entities.user import User
-from infra.domain.valueobject import UserState
 
 
 class AuthInfo(User):
 
-    def __init__(self, uid=None, user_name=None, state=UserState.DEACTIVATE, password=None):
+    def __init__(self, uid=None, user_name=None, state=None, password=None):
         super().__init__(uid, user_name, state)
         if password is not None:
             self.password = password

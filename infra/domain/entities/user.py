@@ -13,7 +13,7 @@ class UserState(Enum):
 
 class User(Entity):
 
-    def __init__(self, uid=None, user_name=None, state=UserState.DEACTIVATE):
+    def __init__(self, uid=None, user_name=None, state=None):
         super().__init__(uid)
         self.user_name = user_name
         self.state = state
