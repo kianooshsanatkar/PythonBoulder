@@ -5,3 +5,9 @@ class db:
     Base = declarative_base()
     connection_str = "postgresql://IUEPA_Test:pass1234@localhost/IUEPA_DB"
     echo = True
+
+
+class TestDb:
+    Base = declarative_base()
+    connection_str = "postgresql://IUEPA_Test:pass1234@localhost/IUEPA_Test_DB"
+    echo = True
