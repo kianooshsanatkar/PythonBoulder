@@ -1,3 +1,8 @@
+# Todo: Delete
+# Group Entity is deleted
+
+"""
+
 from infra.tests.functionaltests.basefunctional import BaseInfraFunctionalTest
 
 
@@ -19,3 +24,5 @@ class GroupTest(BaseInfraFunctionalTest):
         self.assertIsNotNone(group_by_title)
         self.assertTrue(4 == group.members.__len__() == group_by_title.members.__len__())
         self.assertTrue('my group' == group.title == group_by_title.title)
+
+"""
