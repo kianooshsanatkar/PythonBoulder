@@ -1,5 +1,4 @@
 from exceptionhandler.exceptions import ValidationException
-from core.auxiliary.helper import username_validation
 from infra.domain.entities.user import User
 from infra.resource import ResourceManager, Texts
 
