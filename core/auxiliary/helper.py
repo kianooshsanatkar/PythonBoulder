@@ -1,8 +1,6 @@
 import re
 from uuid import UUID
 
-from passlib.hash import pbkdf2_sha256
-
 
 def is_number(obj) -> bool:
     if obj is None:
@@ -15,18 +13,6 @@ def is_number(obj) -> bool:
     return False
 
 
-def hashing_string(string: str) -> str:
-    return pbkdf2_sha256.hash(string)
-
-
-def is_hashed(string: str) -> bool:
-    return pbkdf2_sha256.identify(string)
-
-
-def hash_match(hashed: str, string: str):
-    return pbkdf2_sha256.verify(string, hashed)
-
-
 def extract_numbers(string: str, phone_first00=False) -> str:
     """
     remove everything but numbers
@@ -37,25 +23,6 @@ def extract_numbers(string: str, phone_first00=False) -> str:
     regex = r"\D"
     return ("+" + re.sub(regex, "", string)) if phone_first00 is True and string[0] == "+" \
         else re.sub(regex, "", string)
-
-
-def password_validation(password: str):
-    if is_hashed(password):
-        return True
-    # regex = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z\d\-_.!@#$%^&*()+=~`:;<>\?,{}[\] ]{6,31}$"
-    regex = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*[\d\-_\.!@#$%^&*()+=~`:;<>\?,{}[\] ])" \
-            "[a-zA-Z\d\-_\.!@#$%^&*()+=~`:;<>\?,{}[\] ]{6,31}$"
-    if re.match(regex, password):
-        return True
-    return False
-
-
-def username_validation(username: str) -> bool:
-    if 2 < username.__len__() < 16:
-        regex = r"^[a-z0-9]+[_a-z0-9]*[a-z0-9]+$"
-        if re.match(regex, username, re.IGNORECASE):
-            return True
-    return False
 
 
 def mobile_number_validator(mobile: str) -> bool:
@@ -73,7 +40,7 @@ def email_validator(email: str) -> bool:
     return False
 
 
-def is_UUID(string: str,empty_uuid=True):
+def is_UUID(string: str, empty_uuid=True):
     if empty_uuid:
         regex = r'^[0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12}$'
     else:
