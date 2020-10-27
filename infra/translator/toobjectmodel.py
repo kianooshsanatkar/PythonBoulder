@@ -7,7 +7,7 @@ class EntityTranslator:
     @staticmethod
     def user_translator(entity: user.User) -> models.User:
         return models.User(id=entity.uid,
-                           username=entity.user_name,
+                           username=entity.username,
                            password=entity.password,
                            state=entity.state,
                            email=entity.email,

@@ -12,7 +12,7 @@ class ObjectModelTranslator:
 
     @staticmethod
     def user_translator(user: models.User, password=False) -> User:
-        return User(uid=user.Id, user_name=user.UserName,
+        return User(uid=user.Id, username=user.UserName,
                     password=user.Password if password is True else None,
                     email=user.Email,
                     mobile_number=user.MobileNumber, state=user.State, email_verified=user.EmailVerified,
