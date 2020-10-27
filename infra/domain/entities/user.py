@@ -1,4 +1,5 @@
 from enum import Enum
+from uuid import UUID
 
 from core.domain.baseentity import Entity
 
@@ -13,9 +14,9 @@ class UserState(Enum):
 
 class User(Entity):
 
-    def __init__(self, uid=None, user_name=None, state=None):
+    def __init__(self, uid: UUID = None, username: str = None, state: UserState = None):
         super().__init__(uid)
-        self.user_name = user_name
+        self.username = username
         self.state = state
 
 
