@@ -1,9 +1,8 @@
+from uuid import UUID
+
 from bson import ObjectId
 
-from infra.domain.entities.user import User, UserState
 from infra.db.datamodel.usermodel import UserModel
-from infra.domain.entities.Registration import RegistrationInfo
-from infra.domain.entities.authentication import AuthInfo
 
 
 class UserRepository:
@@ -11,16 +10,21 @@ class UserRepository:
     def __init__(self):
         pass
 
-    def get_user(self, uid) -> User:
-        u = UserModel.objects.get(id=ObjectId(uid))
-        return User(u.id, u.UserName, UserState(u.UserState))
+    @staticmethod
+    def get_user(uid) -> UserModel:
+        return UserModel.objects.get(id=ObjectId(uid))
 
-    def initiate_user(self, user: AuthInfo):
-        u = UserModel(UserName=user.user_name, Password=user.password, UserState=user.state.value)
-        u.save()
-        return u.id
+    @staticmethod
+    def get_by_username(username: str) -> UserModel:
+        return UserModel.objects(UserName__exact=username.lower()).first()
 
-    def register_user(self, registration_info: RegistrationInfo):
+    @staticmethod
+    def initiate_user(user: UserModel) -> UUID:
+        user.save()
+        return user.id
+
+    @staticmethod
+    def register_user(registration_info) -> UUID:
         u = UserModel.objects.get(id=ObjectId(registration_info.uid))
         u.Email = str(registration_info.email)
         u.CellPhone = str(registration_info.cellphone)
