@@ -6,8 +6,8 @@ from infra.domain.validation.registrationvalidation import registration_validati
 from infra.domain.validation.uservalidation import username
 
 
-def user(auth_info: AuthInfo):
-    username(User(auth_info))
+def auth_validation(auth_info: AuthInfo):
+    username(auth_info.username)
     password_validation(auth_info.password)
 
 
