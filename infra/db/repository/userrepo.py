@@ -19,14 +19,14 @@ class UserRepository:
         return UserModel.objects(UserName__exact=username.lower()).first()
 
     @staticmethod
-    def initiate_user(user: UserModel) -> UUID:
+    def insert_user(user: UserModel) -> UUID:
         user.save()
         return user.id
 
-    @staticmethod
-    def register_user(registration_info) -> UUID:
-        u = UserModel.objects.get(id=ObjectId(registration_info.uid))
-        u.Email = str(registration_info.email)
-        u.CellPhone = str(registration_info.cellphone)
-        u.save()
-        return u.id
+    # @staticmethod
+    # def update_user(registration_info) -> UUID:
+    #     u = UserModel.objects.get(id=ObjectId(registration_info.uid))
+    #     u.Email = str(registration_info.email)
+    #     u.CellPhone = str(registration_info.cellphone)
+    #     u.save()
+    #     return u.id
