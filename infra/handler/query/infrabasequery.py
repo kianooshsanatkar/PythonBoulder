@@ -1,10 +1,10 @@
+from abc import ABC
+
 from core.handler.basecq import BaseQuery
-from infra.datahandler.repository import InfraRepository
-from infra.translator.toentity import ObjectModelTranslator
-from infra.translator.toobjectmodel import EntityTranslator
 
 
-class InfraBaseQuery(BaseQuery):
-    __data_handler__ : InfraRepository
-    __entity_translator__ = EntityTranslator
-    __model_translator__ = ObjectModelTranslator
+class InfraBaseQuery(BaseQuery, ABC):
+
+    def __init__(self, user, uow, adapter):
+        super().__init__(user, uow)
+        self.adp = adapter
