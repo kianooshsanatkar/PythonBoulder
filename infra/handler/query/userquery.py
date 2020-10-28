@@ -1,9 +1,13 @@
 from uuid import UUID
 
+import bson
+
 from core.auxiliary.helper import is_UUID
 from core.exceptionhandler.exceptions import AuthenticationException, ValidationException
+from infra.domain.entities.authentication import AuthInfo
 from infra.datahandler import objectmodels as model
-from infra.domain.entities.user import User
+from infra.domain.services.authservice import password_verification
+from infra.domain.validation import password_validation
 from infra.handler.query.infrabasequery import InfraBaseQuery
 from infra.resource import ResourceManager, Texts
 
@@ -14,54 +18,41 @@ class UserLogin(InfraBaseQuery):
         return True
 
     def run(self, username: str, password: str):
+
+        # <editor-fold desc="Check if password is valid and if user already logged-in">
         try:
-            User().password_validation(password)
+            password_validation(password)
+            # todo: instead of raising error we can log-out the user
             if self.current_user is not None:
-                raise AuthenticationException()
-        except:
+                raise AuthenticationException('User is already Logged-in!')
+        except Exception as er:
             raise AuthenticationException(ResourceManager.translate(Texts.LOGIN_VALUE_INCORRECT))
-        with self.__data_handler__ as repo:
-            user_model = repo.session.query(model.User).filter_by(UserName=username).first()
-            if user_model is None:
-                user_model = repo.session.query(model.User).filter_by(Email=username).first()
-                if user_model is None:
-                    raise AuthenticationException('User didn\'t exist')
-            current_person_id = user_model.CurrentPersonId
-            user = self.__model_translator__.user_translator(user_model, True)
+        # </editor-fold>
 
-        user.password_verification(password)
+        # todo: detect if it's email or username
+        # todo: implement find by email
 
-        if user.persons and user.persons.__len__() > 0:
-            if user.persons.__len__() == 1:
-                user.__current_person__ = user.persons[0]
-            elif current_person_id:
-                user.__current_person__ = filter(lambda pr: pr.uid == current_person_id, user.persons).__next__()
-        return User(user.uid, username, None, user.email, user.cellphone, user.state, user.email_verified,
-                    user.mobile_verified,
-                    None if user.__current_person__ else user.persons, user.__current_person__)
+        with self.__uow__() as uow:
+            user = self.adp(uow.user_repository.get_by_username(username), AuthInfo)
+            password_verification(auth=user, password=password)
+            return user
 
 
 class GetUser(InfraBaseQuery):
+    def authorize(self) -> bool:
+        return True
+
     def run(self, discriminator):
-        with self.__data_handler__ as repo:
-            if isinstance(discriminator, UUID):
-                user = repo.get_by_id(model.User, discriminator)
+        with self.__uow__() as uow:
+            if isinstance(discriminator, bson.ObjectId):
+                return self.adp(uow.user_repository.get_user(discriminator), AuthInfo)
             elif isinstance(discriminator, str):
-                user = repo.get_user_by_username(discriminator)
-                if user is None:
-                    user = repo.get_user_by_Email(discriminator)
-            if user:
-                user_entity = self.__model_translator__.user_translator(user)
-                # if user.Persons.__len__() == 1:
-                #     user_entity.__current_person__ = self.__model_translator__.person_translator(user.Persons[0])
-                # elif user.Persons.__len__() > 1 and user.CurrentPersonId:
-                #     current_person = user.Persons.find(Id=user.CurrentPersonId)
-                #     user_entity.__current_person__ = self.__model_translator__.person_translator(current_person)
-                return user_entity
-        return None
+                return self.adp(uow.user_repository.get_by_username(discriminator), AuthInfo)
+            else:
+                raise ValidationException('Discriminator is not valid!')
 
 
-#TODO: Guess DOn't User Ever
+# TODO: Guess DOn't User Ever
 class GetUserPerson(InfraBaseQuery):
     def run(self, discriminator):
         with self.__data_handler__ as repo:
