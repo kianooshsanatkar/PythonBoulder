@@ -2,22 +2,19 @@ from copy import copy
 from typing import overload
 from uuid import UUID
 
-# from infra.handler.commands.groupcommand import CreateNewGroup
-from infra.handler.commands.personcommand import RegisterPerson, RegisterPersonFor
-from infra.handler.commands.usercommand import ChangePassword, ChangeUserName, ChangeUserEmail, InitializeUser, CreateBlankUser
-from infra.datahandler.repository import InfraRepository
-# from infra.domain.entities.group import Group
+from infra.db.repository.uow import UnitOfWork
 from infra.domain.entities.person import Person
 from infra.domain.entities.user import User
-from infra.handler.query.groupquery import GetGroupById, GetGroupByTitle
+from infra.handler.commands.personcommand import RegisterPerson, RegisterPersonFor
+from infra.handler.commands.usercommand import ChangePassword, ChangeUserName, ChangeUserEmail, InitializeUser
 from infra.handler.query.personquery import GetPerson, GetPersonsOfUser
 from infra.handler.query.userquery import UserLogin, GetUser, GetUserPerson
 
 
 class BaseCaller:
 
-    def __init__(self, repository: InfraRepository, user=None):
-        self.__repo__ = repository
+    def __init__(self, db_context, user=None):
+        self.__uow__ = lambda: UnitOfWork(**db_context)
         self.__user = user
 
     def set_user(self, user: User):
@@ -29,20 +26,18 @@ class BaseCaller:
 
     @property
     def prop(self):
-        return {'user': self.__user__, 'data_handler': self.__repo__}
+        return {'user': self.__user__, 'uow': self.__uow__, 'adapter': self.__adapter__}
 
 
 class CommandsCaller(BaseCaller):
 
-    def register_user(self, user):
-        if isinstance(user, dict):
-            user = User(**user)
-        return InitializeUser(**self.prop).execute(user)
+    def __init__(self, db_context, user, adapter):
+        super().__init__(db_context, user)
+        self.__adapter__ = adapter
 
-    def create_blank_user(self, user):
-        if isinstance(user, dict):
-            user = User(**user)
-        return CreateBlankUser(**self.prop).execute(user)
+    def register_user(self, user):
+        print(self.prop)
+        return InitializeUser(**self.prop).execute(**user)
 
     def change_user_email(self, email):
         return ChangeUserEmail(**self.prop).execute(email)
@@ -61,30 +56,33 @@ class CommandsCaller(BaseCaller):
         person = Person(**person)
         return RegisterPersonFor(**self.prop).execute(person)
 
-    # def create_new_group(self, group_title: str, members: list):
-    #     contact_members = [Person(uid=member) for member in members]
-    #     return CreateNewGroup(**self.prop).execute(Group(title=group_title, members=contact_members))
-
 
 class QueryCaller(BaseCaller):
 
-    def query_user_login(self, username, password):
+    def __init__(self, db_context, user, adapter):
+        super().__init__(db_context, user)
+        self.__adapter__ = adapter
+
+    def query_user_login(self, username, password) -> User:
         return UserLogin(**self.prop).execute(username, password)
 
+    # region get_user() Overload
     @overload
-    def get_user(self, user_name: str):
+    def get_user(self, user_name: str) -> User:
         pass
 
     @overload
-    def get_user(self, email: str):
+    def get_user(self, email: str) -> User:
         pass
 
     @overload
-    def get_user(self, user_id: UUID):
+    def get_user(self, user_id: UUID) -> User:
         pass
 
     def get_user(self, discriminator) -> User:
         return GetUser(**self.prop).execute(discriminator)
+
+    # endregion
 
     def get_user_person(self, discriminator) -> User:
         return GetUserPerson(**self.prop).execute(discriminator)
@@ -96,9 +94,3 @@ class QueryCaller(BaseCaller):
         if not user_id:
             user_id = self.__user__.uid
         return GetPersonsOfUser(**self.prop).execute(user_id)
-
-    # def get_group_by_id(self, group_id)->Group:
-    #     return GetGroupById(**self.prop).execute(group_id)
-
-    # def get_group_by_title(self, group_id)->Group:
-    #     return GetGroupByTitle(**self.prop).execute(group_id)
