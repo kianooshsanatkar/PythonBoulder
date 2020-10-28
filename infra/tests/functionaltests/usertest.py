@@ -1,4 +1,55 @@
 # Todo: Rewrite
+from unittest import TestCase
+
+from adapter import db_model_adapter, entity_adapter
+from config import MongoTestDb
+from core.exceptionhandler.exceptions import AuthenticationException
+from infra.db.datamodel.usermodel import UserModel
+from infra.db.repository.uow import UnitOfWork
+from infrainterface import CommandsCaller, QueryCaller
+
+
+class UserTest(TestCase):
+
+    def setUp(self) -> None:
+        self.commands = CommandsCaller(MongoTestDb, None, db_model_adapter)
+        self.queries = QueryCaller(MongoTestDb, None, entity_adapter)
+
+    def tearDown(self) -> None:
+        with UnitOfWork('EF_User_Test', 'User') as uow:
+            UserModel.drop_collection()
+
+    def test_user_registration(self):
+
+        user = {
+            'username': 'test_user_name',
+            'password': 'Passw0rd',
+        }
+
+        uid = self.commands.register_user(user)
+        get_user = self.queries.get_user(uid)
+        self.assertEqual(user['username'], get_user.username)
+        self.assertEqual(1, get_user.state.value)
+
+
+    def test_user_login(self):
+        user = {
+            'username': 'test_user_name',
+            'password': 'Passw0rd',
+        }
+        uid = self.commands.register_user(user)
+        get_user = self.queries.query_user_login(**user)
+        self.assertEqual(user['username'], get_user.username)
+        self.assertEqual(1, get_user.state.value)
+        self.assertEqual(uid, get_user.uid)
+
+        fake_user = {
+            'username': 'test_user_name',
+            'password': 'Fake_Passw0rd',
+        }
+        self.assertRaises(AuthenticationException, self.queries.query_user_login, **fake_user)
+
+
 """
 from core.exceptionhandler.exceptions import AuthenticationException
 from infra.domain.valueobject import UserState
