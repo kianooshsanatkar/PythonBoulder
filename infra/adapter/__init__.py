@@ -1,4 +1,4 @@
-from adapter.user import auth2user, user2auth
+from infra.adapter.user import auth2user, user2auth
 from infra.domain.entities.Registration import RegistrationInfo
 from infra.domain.entities.authentication import AuthInfo
 from infra.domain.entities.user import User

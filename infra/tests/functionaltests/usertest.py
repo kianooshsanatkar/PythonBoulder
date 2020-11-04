@@ -1,12 +1,12 @@
 # Todo: Rewrite
 from unittest import TestCase
 
-from adapter import db_model_adapter, entity_adapter
-from config import MongoTestDb
+from infra.adapter import db_model_adapter, entity_adapter
+from infra.config import MongoTestDb
 from core.exceptionhandler.exceptions import AuthenticationException
 from infra.db.datamodel.usermodel import UserModel
 from infra.db.repository.uow import UnitOfWork
-from infrainterface import CommandsCaller, QueryCaller
+from infra.infrainterface import CommandsCaller, QueryCaller
 
 
 class UserTest(TestCase):

@@ -3,7 +3,7 @@ from datetime import date
 from core.domain.baseentity import Entity
 from core.conventions.conventionalobjects import Location, Email
 from core.conventions.socialmediaobjects import *
-from conventions.valueobjects import Gender
+from core.conventions.valueobjects import Gender
 from infra.domain.entities.user import User
 
 

@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Boolean, Date, SmallInteger, ForeignKey, 
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship, backref
 
-from configuration import db
+from core.configuration import db
 from core.datahandler.baseobjectmodel import BaseObjectModel
 
 
