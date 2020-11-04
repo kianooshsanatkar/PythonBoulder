@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from db.repo.iuowmanager import IUnitOfWorkConfiguration
+from core.db.repo.iuowmanager import IUnitOfWorkConfiguration
 
 
 class UowConfiguration(IUnitOfWorkConfiguration):

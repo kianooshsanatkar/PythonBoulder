@@ -3,11 +3,11 @@ from uuid import uuid4
 
 from sqlalchemy import Column, String, Integer
 
-from configuration import TestDb
-from datahandler.baseobjectmodel import BaseObjectModel
-from db.slqalchemyrepo.sqlarepo import Repository
-from db.slqalchemyrepo.sqlauow import UnitOfWork
-from db.slqalchemyrepo.sqlauowmanager import UowConfiguration
+from core.configuration import TestDb
+from core.datahandler.baseobjectmodel import BaseObjectModel
+from core.db.slqalchemyrepo.sqlarepo import Repository
+from core.db.slqalchemyrepo.sqlauow import UnitOfWork
+from core.db.slqalchemyrepo.sqlauowmanager import UowConfiguration
 
 
 class TestDataModel(BaseObjectModel, TestDb.Base):

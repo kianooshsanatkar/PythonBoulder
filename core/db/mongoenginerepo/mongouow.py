@@ -3,7 +3,7 @@ from collections import namedtuple
 
 from mongoengine import connection
 
-from db.repo.absuow import AbsUnitOfWork
+from core.db.repo.absuow import AbsUnitOfWork
 
 
 class BaseUnitOfWork(AbsUnitOfWork, ABC):

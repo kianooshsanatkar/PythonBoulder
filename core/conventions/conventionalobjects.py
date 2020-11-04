@@ -1,4 +1,4 @@
-from auxiliary.helper import is_number
+from core.auxiliary.helper import is_number
 
 
 class Email:

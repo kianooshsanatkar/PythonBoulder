@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
-from configuration import db
+from core.configuration import db
 from core.domain.baseentity import Entity
-from db.repo.absrepo import AbsRepository
+from core.db.repo.absrepo import AbsRepository
 
 
 # def replace_object_model_fields(base_obj: db.Base, destination_obj: db.Base):
